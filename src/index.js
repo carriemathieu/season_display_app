@@ -15,15 +15,24 @@ class App extends React.Component {
         )
     }
 
-    render () { // do not initialize anything in render
+    renderContent() { // do not initialize anything in render
         if (this.state.errorMessage && !this.state.lat) {
             return <div> Error: {this.state.errorMessage}</div>
         }
         if (!this.state.errorMessage && this.state.lat) {
-            // return <div>Latitude: {this.state.lat}</div>
+            // return <div>Latitude: {this.state.lat}</div> --> refactored into SeasonDisplay
             return <SeasonDisplay lat={this.state.lat}/> // gives season display access to lat
         }
         return <Spinner message="please accept location request"/>
+    }
+
+    render () {
+        // try to extract logic (esp. conditional logic) fron render method
+        return (
+        <div className="border red">
+            {this.renderContent()}
+        </div>
+        )
     }
 }
 
